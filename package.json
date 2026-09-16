@@ -1,0 +1,9 @@
+{
+  "name": "cowork-compass",
+  "version": "1.0.0",
+  "description": "Travel overlap notifier for Slack, backed by Google Apps Script + Google Sheets.",
+  "private": true,
+  "scripts": {
+    "test": "node test/run.js"
+  }
+}

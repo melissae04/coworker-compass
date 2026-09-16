@@ -1,0 +1,49 @@
+{
+  "display_information": {
+    "name": "Cowork Compass",
+    "description": "Log a trip, find out who else is around.",
+    "background_color": "#2c4a52",
+    "long_description": "Cowork Compass tells you who from Evolution is already in a city you are travelling to. Run /travel to log a trip and you get a private DM listing anyone whose home base or logged travel overlaps with your destination and dates. Run /travel-home to set the city used for that matching, without touching your public bio. It is informational only: nothing is posted to a channel, nobody else is told you are travelling, and the app never offers to make an introduction."
+  },
+  "features": {
+    "bot_user": {
+      "display_name": "Cowork Compass",
+      "always_online": false
+    },
+    "slash_commands": [
+      {
+        "command": "/travel",
+        "url": "https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec?k=REPLACE_WITH_WEBAPP_SHARED_KEY",
+        "description": "Log a trip and see who else is around",
+        "usage_hint": "opens a form",
+        "should_escape": false
+      },
+      {
+        "command": "/travel-home",
+        "url": "https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec?k=REPLACE_WITH_WEBAPP_SHARED_KEY",
+        "description": "Set the city used for travel matching",
+        "usage_hint": "opens a form",
+        "should_escape": false
+      }
+    ]
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": [
+        "commands",
+        "chat:write",
+        "users:read",
+        "users:read.email"
+      ]
+    }
+  },
+  "settings": {
+    "interactivity": {
+      "is_enabled": true,
+      "request_url": "https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec?k=REPLACE_WITH_WEBAPP_SHARED_KEY"
+    },
+    "org_deploy_enabled": true,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  }
+}
