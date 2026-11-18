@@ -257,7 +257,7 @@ function queueOrRun_(job) {
   if (CONFIG.DEFER_PROCESSING) {
     try {
       enqueueJob_(job);
-      return ackEmpty_();
+      return ackConfirmation_(job);
     } catch (err) {
       logError_(job.slackUserId, job.command, 'Enqueue failed, running inline: ' + err);
     }
@@ -266,8 +266,27 @@ function queueOrRun_(job) {
     runJob_(job);
   } catch (err) {
     logError_(job.slackUserId, job.command, err);
+    return ackEmpty_();
   }
-  return ackEmpty_();
+  return ackConfirmation_(job);
+}
+
+/**
+ * Replaces the form with a short confirmation instead of closing it silently.
+ * The DM is sent by a trigger and can take up to a minute, and it arrives under
+ * Apps in the sidebar where it is easy to miss, so the modal says where to look.
+ * @param {!Object} job
+ * @return {!TextOutput}
+ */
+function ackConfirmation_(job) {
+  var view = job.type === 'home'
+    ? buildConfirmationModal_('Home base saved',
+        'Saved *' + job.city + '* as your home base for travel matching.')
+    : buildConfirmationModal_('Trip logged',
+        'Logged your trip to *' + job.city + '*.');
+  return ContentService
+    .createTextOutput(JSON.stringify({ response_action: 'update', view: view }))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
