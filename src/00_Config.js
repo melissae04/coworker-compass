@@ -39,7 +39,7 @@ var CONFIG = {
    * built has no Email column, so name matching is kept as a fallback; see
    * docs/OPEN-ITEMS.md.
    */
-  ALLOW_NAME_FALLBACK_IDENTITY: true,
+  ALLOW_NAME_FALLBACK_IDENTITY: false,
 
   /** Tab names, matching the prototype sheet. */
   TABS: {

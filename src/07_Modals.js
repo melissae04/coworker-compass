@@ -116,6 +116,30 @@ function buildHomeModal_(currentCity) {
 }
 
 /**
+ * Shown in place of a form once it has been accepted.
+ * @param {string} title Modal title, 24 characters at most.
+ * @param {string} summary First line, mrkdwn.
+ * @return {!Object} A Slack view payload.
+ */
+function buildConfirmationModal_(title, summary) {
+  return {
+    type: 'modal',
+    title: { type: 'plain_text', text: title },
+    close: { type: 'plain_text', text: 'Done' },
+    blocks: [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: summary + '\n\nCowork Compass will message you within a minute. ' +
+            'Look under *Apps* in your Slack sidebar.'
+        }
+      }
+    ]
+  };
+}
+
+/**
  * Reads a value out of a view_submission's state object.
  * @param {!Object} view
  * @param {string} blockId

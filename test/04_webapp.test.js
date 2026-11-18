@@ -192,7 +192,12 @@ describe('trip submission validation', () => {
       payload: JSON.stringify(tripSubmission({ city: 'Los Angeles', start: '2026-11-03', end: '2026-11-05' })),
       token: 'verify-token'
     }));
-    assert.strictEqual(response.getContent(), '');
+    const ack = JSON.parse(response.getContent());
+    assert.strictEqual(ack.response_action, 'update');
+    assert.strictEqual(ack.view.type, 'modal');
+    assert.strictEqual(ack.view.title.text, 'Trip logged');
+    assert.ok(ack.view.blocks[0].text.text.indexOf('Los Angeles') !== -1);
+    assert.ok(ack.view.blocks[0].text.text.indexOf('Apps') !== -1);
     // No sheet or Slack work happened on the request thread.
     assert.deepStrictEqual(slackMethods(app), []);
     const jobKeys = Object.keys(app._recorder.properties).filter((key) => key.indexOf('job:') === 0);
